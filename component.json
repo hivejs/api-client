@@ -1,0 +1,16 @@
+{
+  "name": "hive-ot",
+  "repo": "hivejs/hive-client",
+  "description": "Hive.js collaborating client",
+  "version": "0.0.1",
+  "dependencies": {
+    "marcelklehr/gulf": "*"
+  , "visionmedia/superagent": "*"
+  , "johntron/superagent-prefix": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
