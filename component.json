@@ -1,6 +1,6 @@
 {
   "name": "hive-ot",
-  "repo": "hivejs/hive-client",
+  "repo": "hivejs/hive-api-client",
   "description": "Hive.js collaborating client",
   "version": "0.0.1",
   "dependencies": {

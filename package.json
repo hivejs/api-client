@@ -1,5 +1,5 @@
 {
-  "name": "hive-client",
+  "name": "hive-api-client",
   "version": "0.0.1",
   "description": "Hive.js collaborating client",
   "main": "index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hivejs/hive-client.git"
+    "url": "https://github.com/hivejs/hive-api-client.git"
   },
   "keywords": [
     "hivejs",
@@ -22,7 +22,7 @@
   "author": "Marcel Klehr <mklehr@gmx.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hivejs/hive-client/issues"
+    "url": "https://github.com/hivejs/hive-api-client/issues"
   },
-  "homepage": "https://github.com/hivejs/hive-client"
+  "homepage": "https://github.com/hivejs/hive-api-client"
 }
