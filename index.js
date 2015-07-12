@@ -132,6 +132,14 @@ module.exports = function(root_url, API_key) {
         })
       }
     }
+
+    /**
+     * ```
+     * var doc = gulf.EditableDocument(textOT)
+     *   , apiLink = hiveClient(root_url, API_key).link(id)
+     * apiLink.pipe(doc.masterLink()).pipe(apiLink)
+     * ```
+     */
   , link: function(docId) {
       var link = new gulf.Link
         , snapshot
@@ -152,7 +160,7 @@ module.exports = function(root_url, API_key) {
             snapshot = s
 
             // send init and poll server for new changes
-            link.send('init', {content: snapshot.content, initialEdit:"{\"id\":"+document.snapshot+"}"})
+            link.send('init', {contents: snapshot.content, edit:"{\"id\":"+document.snapshot+"}"})
             createDownlink()
           })
         })
@@ -198,86 +206,4 @@ module.exports = function(root_url, API_key) {
   }
 
   return api
-}
-
-/**
- * ```
- * var doc = hiveClient.EditableDocument(textOT)
- *   , apiLink = hiveClient(root_url, API_key).link(id)
- * apiLink.pipe(doc.masterLink()).pipe(apiLink)
- * hiveClient.attachTextarea(doc, textarea)
- * ```
- */
-module.exports.EditableDocument = function(ottype) {
-  var editableDoc = new gulf.EditableDocument(ottype)
-
-  return editableDoc
-}
-
-module.exports.attachTextarea = function(editableDoc, textarea) {
-  var oldval
-
-  // on incoming changes
-  editableDoc._change = function(newcontent, cs) {
-    console.log('_change:', newcontent, cs)
-    // remember selection
-    var oldSel = [textarea.selectionStart, textarea.selectionEnd]
-
-    // set new content
-    oldval = textarea.value = newcontent
-
-    if(cs) { // in case of a hard reset this isn't available
-      // take care of selection
-      var newSel = this.ottype.transformSelection(oldSel, cs)
-      textarea.selectionStart = newSel[0]
-      textarea.selectionEnd = newSel[1]
-    }
-  }
-
-  // before _change() and on any edit event
-  editableDoc._collectChanges = function() {
-    var cs = []
-      , newval = textarea.value
-
-    // The following code is taken from shareJS:
-    // https://github.com/share/ShareJS/blob/3843b26831ecb781344fb9beb1005cfdd2/lib/client/textarea.js
-
-    if (oldval === newval) return;
-
-    var commonStart = 0;
-    while (oldval.charAt(commonStart) === newval.charAt(commonStart)) {
-      commonStart++;
-    }
-    var commonEnd = 0;
-    while (oldval.charAt(oldval.length - 1 - commonEnd) === newval.charAt(newval.length - 1 - commonEnd) &&
-      commonEnd + commonStart < oldval.length && commonEnd + commonStart < newval.length) {
-      commonEnd++;
-    }
-    if (oldval.length !== commonStart + commonEnd) {
-      if(commonStart) cs.push(commonStart)
-      cs.push({d: oldval.length - commonStart - commonEnd });
-    }
-    if (newval.length !== commonStart + commonEnd) {
-      if(commonStart && !cs.length) cs.push(commonStart)
-      cs.push(newval.slice(commonStart, newval.length - commonEnd));
-    }
-
-    oldval = newval
-    console.log(cs)
-    this.update(cs)
-  }
-
-  var eventNames = ['textInput', 'keydown', 'keyup', 'cut', 'paste', 'drop', 'dragend'];
-  for (var i = 0; i < eventNames.length; i++) {
-    var e = eventNames[i];
-    if (textarea.addEventListener) {
-      textarea.addEventListener(e, genOp, false);
-    } else {
-      textarea.attachEvent('on' + e, genOp);
-    }
-  }
-  function genOp(evt) {
-    console.log(evt)
-    editableDoc._collectChanges()
-  }
 }
