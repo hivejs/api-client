@@ -1,6 +1,6 @@
 {
   "name": "hive-api-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Hive.js collaborating client",
   "main": "index.js",
   "dependencies": {
