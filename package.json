@@ -1,12 +1,12 @@
 {
   "name": "hive-api-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Hive.js collaborating client",
   "main": "index.js",
   "dependencies": {
-     "gulf": "*"
-  , "superagent":"*"
-  , "superagent-prefix": "*"
+    "gulf": "*",
+    "superagent": "*",
+    "superagent-prefix": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
