@@ -8,7 +8,7 @@ module.exports = function(root_url, API_key) {
         request
         .post(root_url+'/api/v1/documents')
         .send({type: type})
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function loadDocument(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
@@ -18,7 +18,7 @@ module.exports = function(root_url, API_key) {
     , get: function(id, cb) {
         request
         .get(root_url+'/api/v1/documents/'+id)
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function loadDocument(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
@@ -28,7 +28,7 @@ module.exports = function(root_url, API_key) {
     , delete: function(id, cb) {
         request
         .delete(root_url+'/api/v1/documents/'+id)
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function loadDocument(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
@@ -38,7 +38,7 @@ module.exports = function(root_url, API_key) {
     , getSnapshots: function(id, cb) {
         request
         .get(root_url+'/api/v1/documents/'+id+'/snapshots')
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
@@ -48,7 +48,7 @@ module.exports = function(root_url, API_key) {
     , getSnapshotsSince: function(id, since, cb) {
         request
         .get(root_url+'/api/v1/documents/'+id+'/snapshots?since='+since)
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
@@ -59,7 +59,7 @@ module.exports = function(root_url, API_key) {
         request
         .post(root_url+'/api/v1/documents/'+id+'/pendingChanges')
         .send({changes: cs, parent: parent, user: user})
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
@@ -72,7 +72,7 @@ module.exports = function(root_url, API_key) {
           request
           .post(root_url+'/api/v1/users')
           .send({type: type})
-          .set('X-API-Key', API_key)
+          .set('Authentication', API_key)
           .end(function loadDocument(err, res) {
             if(err) return cb(err)
             if(res.status != 200) return cb(res.toError())
@@ -82,7 +82,7 @@ module.exports = function(root_url, API_key) {
       , get: function(id, cb) {
           request
           .get(root_url+'/api/v1/users/'+id)
-          .set('X-API-Key', API_key)
+          .set('Authentication', API_key)
           .end(function loadDocument(err, res) {
             if(err) return cb(err)
             if(res.status != 200) return cb(res.toError())
@@ -92,7 +92,7 @@ module.exports = function(root_url, API_key) {
       , delete: function(id, cb) {
           request
           .delete(root_url+'/api/v1/users/'+id)
-          .set('X-API-Key', API_key)
+          .set('Authentication', API_key)
           .end(function loadDocument(err, res) {
             if(err) return cb(err)
             if(res.status != 200) return cb(res.toError())
@@ -102,7 +102,7 @@ module.exports = function(root_url, API_key) {
       , getDocuments: function(id, cb) {
         request
         .get(root_url+'/api/v1/users/'+id+'/documents')
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
@@ -112,7 +112,7 @@ module.exports = function(root_url, API_key) {
       , getSnapshots: function(id, cb) {
         request
         .get(root_url+'/api/v1/users/'+id+'/snapshots')
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
@@ -124,7 +124,7 @@ module.exports = function(root_url, API_key) {
       get: function(id, cb) {
         request
         .get(root_url+'/api/v1/snapshots/'+id)
-        .set('X-API-Key', API_key)
+        .set('Authentication', API_key)
         .end(function loadDocument(err, res) {
           if(err) return cb(err)
           if(res.status != 200) return cb(res.toError())
