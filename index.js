@@ -178,7 +178,7 @@ module.exports = function(root_url, API_key) {
 
           document.snapshot = s.id
           snapshot = s
-          myEdits.push(sy.id)
+          myEdits.push(s.id)
           link.send('ack', s.id)
           editInFlight = false
         })
