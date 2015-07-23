@@ -186,7 +186,7 @@ module.exports = function(root_url, API_key) {
 
       function createDownlink() {
         setInterval(function() {
-          api.document.getSnapshotsSince(document.id, document.snapshot, function(err, snapshots) {
+          api.document.getSnapshotsSince(document.id, document.latestSnapshot, function(err, snapshots) {
             if(err) return alert(err.message || res.body.message)
 
             if(editInFlight) return
