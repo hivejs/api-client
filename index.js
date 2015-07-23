@@ -154,13 +154,13 @@ module.exports = function(root_url, API_key) {
           document = doc
 
           // Try to fetch the latest snapshot
-          api.snapshot.get(document.snapshot, function(err, s) {
+          api.snapshot.get(document.latestSnapshot, function(err, s) {
             if(err) return link.emit('error', err)
 
             snapshot = s
 
             // send init and poll server for new changes
-            link.send('init', {contents: snapshot.content, edit:"{\"id\":"+document.snapshot+"}"})
+            link.send('init', {contents: snapshot.contents, edit:"{\"id\":"+document.latestSnapshot+"}"})
             createDownlink()
           })
         })
