@@ -176,7 +176,7 @@ module.exports = function(root_url, API_key) {
         api.document.sendPendingChanges(document.id, edit.cs, edit.parent, 1, function(err, s) {
           if(err) return init()
 
-          document.snapshot = s.id
+          document.latestSnapshot = s.id
           snapshot = s
           myEdits.push(s.id)
           link.send('ack', s.id)
@@ -185,7 +185,7 @@ module.exports = function(root_url, API_key) {
       })
 
       function createDownlink() {
-        setInterval(function() {
+        setTimeout(function poll() {
           api.document.getSnapshotsSince(document.id, document.latestSnapshot, function(err, snapshots) {
             if(err) return alert(err.message || res.body.message)
 
@@ -193,11 +193,12 @@ module.exports = function(root_url, API_key) {
 
             snapshots.forEach(function(s) {
               if(~myEdits.indexOf(s.id)) return
-              link.send('edit', JSON.stringify({id: s.id, cs: s.changeset, parent: s.parent}))
-              document.snapshot = s.id
+              link.send('edit', JSON.stringify({id: s.id, cs: s.changes, parent: s.parent}))
+              document.latestSnapshot = s.id
               snapshot = s
             })
           })
+          setTimeout(poll, 1000)
         }, 1000)
       }
 
