@@ -55,9 +55,9 @@ module.exports = function(root_url, API_key) {
           cb(null, res.body)
         })
       }
-    , sendPendingChanges: function(id, cs, parent, user, cb) {
+    , change: function(id, cs, parent, user, cb) {
         request
-        .post(root_url+'/api/v1/documents/'+id+'/pendingChanges')
+        .post(root_url+'/api/v1/documents/'+id+'/snapshots')
         .send({changes: cs, parent: parent, user: user})
         .set('Authorization', 'token '+API_key)
         .end(function(err, res) {
@@ -173,7 +173,7 @@ module.exports = function(root_url, API_key) {
         editInFlight = true
         edit = JSON.parse(edit)
         // Try to fetch the latest snapshot
-        api.document.sendPendingChanges(document.id, edit.cs, edit.parent, 1, function(err, s) {
+        api.document.change(document.id, edit.cs, edit.parent, 1, function(err, s) {
           if(err) return init()
 
           document.latestSnapshot = s.id
