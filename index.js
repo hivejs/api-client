@@ -1,5 +1,4 @@
 var request = require('superagent')
-  , gulf = require('gulf')
 
 module.exports = function(root_url, API_key) {
   var api = {
@@ -135,4 +134,15 @@ module.exports = function(root_url, API_key) {
   }
 
   return api
+}
+
+module.exports.authenticate = function(root_url, method, credentials) {
+  request
+  .post(root_url+'/token')
+  .send({grant_type: method, credentials: credentials})
+  .end(function() {
+    if(err) return cb(err)
+    if(res.status != 200) return cb(res.toError())
+    cb(null, res.body)
+  })
 }
