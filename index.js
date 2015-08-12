@@ -88,6 +88,17 @@ module.exports = function(root_url, API_key) {
             cb(null, res.body)
           })
         }
+      , put: function(id, body, cb) {
+          request
+          .put(root_url+'/api/v1/users/'+id)
+          .send(body)
+          .set('Authorization', 'token '+API_key)
+          .end(function loadDocument(err, res) {
+           if(err) return cb(err)
+           if(res.status != 200) return cb(res.toError())
+           cb(null, res.body)
+          })
+        }
       , delete: function(id, cb) {
           request
           .delete(root_url+'/api/v1/users/'+id)
