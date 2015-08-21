@@ -88,7 +88,7 @@ module.exports = function(root_url, API_key) {
             cb(null, res.body)
           })
         }
-      , put: function(id, body, cb) {
+      , update: function(id, body, cb) {
           request
           .put(root_url+'/api/v1/users/'+id)
           .send(body)
