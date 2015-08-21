@@ -67,10 +67,10 @@ module.exports = function(root_url, API_key) {
       }
     }
   , user: {
-      create: function(type, cb) {
+      create: function(body, cb) {
           request
           .post(root_url+'/api/v1/users')
-          .send({type: type})
+          .send(body)
           .set('Authorization', 'token '+API_key)
           .end(function loadDocument(err, res) {
             if(err) return cb(err)
