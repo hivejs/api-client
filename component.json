@@ -1,12 +1,10 @@
 {
-  "name": "hive-ot",
-  "repo": "hivejs/hive-api-client",
+  "name": "hive-client-rest-api",
+  "repo": "hivejs/hive-client-rest-api",
   "description": "Hive.js collaborating client",
   "version": "0.0.1",
   "dependencies": {
-    "marcelklehr/gulf": "*"
-  , "visionmedia/superagent": "*"
-  , "johntron/superagent-prefix": "*"
+    "visionmedia/superagent": "*"
   },
   "license": "MIT",
   "main": "index.js",
