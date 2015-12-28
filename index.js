@@ -3,11 +3,11 @@ var request = require('superagent')
 module.exports = function(root_url, API_key) {
   var api = {
     document: {
-      create: function(type) {
+      create: function(body) {
         return new Promise(function(resolve, reject) {
           request
           .post(root_url+'/api/v1/documents')
-          .send({type: type})
+          .send(body)
           .set('Authorization', 'token '+API_key)
           .end(function (er, res) {
             if(er) return reject(er)
