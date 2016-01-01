@@ -2,7 +2,7 @@
   "name": "hive-client-rest-api",
   "repo": "hivejs/hive-client-rest-api",
   "description": "Hive.js collaborating client",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "dependencies": {
     "visionmedia/superagent": "*"
   },
