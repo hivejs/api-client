@@ -64,11 +64,11 @@ module.exports = function(root_url, API_key) {
           })
         })
       }
-    , change: function(id, cs, parent, user) {
+    , change: function(id, cs, parent) {
         return new Promise(function(resolve, reject) {
           request
           .post(root_url+'/api/v1/documents/'+id+'/snapshots')
-          .send({changes: cs, parent: parent, user: user})
+          .send({changes: cs, parent: parent})
           .set('Authorization', 'token '+API_key)
           .end(function(err, res) {
             if(err) return reject(err)
