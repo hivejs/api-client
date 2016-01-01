@@ -178,7 +178,7 @@ module.exports.authenticate = function(root_url, method, credentials) {
     request
     .post(root_url+'/token')
     .send({grant_type: method, credentials: credentials})
-    .end(function() {
+    .end(function(err, res) {
       if(err) return reject(err)
       if(res.status != 200) return reject(res.toError())
       resolve(res.body)
