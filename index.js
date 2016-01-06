@@ -173,11 +173,11 @@ module.exports = function(root_url, API_key) {
   return api
 }
 
-module.exports.authenticate = function(root_url, method, credentials) {
+module.exports.authenticate = function(root_url, method, credentials, scope) {
   return new Promise(function(resolve, reject) {
     request
     .post(root_url+'/token')
-    .send({grant_type: method, credentials: credentials})
+    .send({grant_type: method, credentials: credentials, scope: scope})
     .end(function(err, res) {
       if(err) return reject(err)
       if(res.status != 200) return reject(res.toError())
