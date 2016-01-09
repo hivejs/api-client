@@ -28,6 +28,19 @@ module.exports = function(root_url, API_key) {
           })
         })
       }
+    , update: function(id, body) {
+        return new Promise(function(resolve, reject) {
+          request
+          .put(root_url+'/api/v1/documents/'+id)
+          .send(body)
+          .set('Authorization', 'token '+API_key)
+          .end(function loadDocument(err, res) {
+           if(err) return reject(err)
+           if(res.status != 200) return reject(res.toError())
+           resolve(res.body)
+          })
+        })
+      }
     , delete: function(id) {
         return new Promise(function(resolve, reject) {
           request
