@@ -183,7 +183,7 @@ module.exports = function(root_url, API_key) {
     , export: function(id, type) {
         return new Promise(function(resolve, reject) {
           request
-          .get(root_url+'/api/v1/snapshots/'+id+'/export?type='+type)
+          .get(root_url+'/api/v1/snapshots/'+id+'/export?type='+encodeURIComponent(type))
           .set('Authorization', 'token '+API_key)
           .end(function (err, res) {
             if(err) return reject(err)
