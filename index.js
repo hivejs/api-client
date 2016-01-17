@@ -90,6 +90,19 @@ module.exports = function(root_url, API_key) {
           })
         })
       }
+    , import: function(id, blob) {
+        return new Promise(function(resolve, reject) {
+          request
+          .post(root_url+'/api/v1/documents/'+id+'/import')
+          .attach('import', blob)
+          .set('Authorization', 'token '+API_key)
+          .end(function(err, res) {
+            if(err) return reject(err)
+            if(res.status != 200) return reject(res.toError())
+            resolve(res.body)
+          })
+        })
+      }
     }
   , user: {
       create: function(body) {
