@@ -194,15 +194,12 @@ module.exports = function(root_url, API_key) {
         })
       }
     , export: function(id, type) {
-        return new Promise(function(resolve, reject) {
-          request
-          .get(root_url+'/api/v1/snapshots/'+id+'/export?type='+encodeURIComponent(type))
-          .set('Authorization', 'token '+API_key)
-          .end(function (err, res) {
-            if(err) return reject(err)
-            if(res.status != 200) return reject(res.toError())
-            resolve(res.text)
-          })
+        return fetch(root_url+'/api/v1/snapshots/'+id+'/export?type='+encodeURIComponent(type), {
+          headers: new Headers({'Authorization': 'token '+API_key})
+        })
+        .then(function(res) {
+          if(res.status != 200) throw new Error(res.status+' '+res.statusText)
+          return res.blob()
         })
       }
     }
