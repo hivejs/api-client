@@ -7,12 +7,12 @@ module.exports = function(root_url, API_key) {
         return new Promise(function(resolve, reject) {
           request
           .post(root_url+'/api/v1/documents')
-          .send(body)
+          .send({data: body})
           .set('Authorization', 'token '+API_key)
           .end(function (er, res) {
             if(er) return reject(er)
-            if(res.status != 200) return reject(res.toError())
-            resolve(res.body)
+            if(res.status != 201) return reject(res.toError())
+            resolve(res.body.data)
           })
         })
       }
@@ -24,20 +24,20 @@ module.exports = function(root_url, API_key) {
           .end(function loadDocument(err, res) {
             if(err) return reject(err)
             if(res.status != 200) return reject(res.toError())
-            resolve(res.body)
+            resolve(res.body.data)
           })
         })
       }
     , update: function(id, body) {
         return new Promise(function(resolve, reject) {
           request
-          .put(root_url+'/api/v1/documents/'+id)
-          .send(body)
+          .patch(root_url+'/api/v1/documents/'+id)
+          .send({data: {type: 'document', attributes: body}})
           .set('Authorization', 'token '+API_key)
           .end(function loadDocument(err, res) {
            if(err) return reject(err)
            if(res.status != 200) return reject(res.toError())
-           resolve(res.body)
+           resolve(res.body.data)
           })
         })
       }
@@ -48,32 +48,32 @@ module.exports = function(root_url, API_key) {
           .set('Authorization', 'token '+API_key)
           .end(function loadDocument(err, res) {
             if(err) return reject(err)
-            if(res.status != 200) return reject(res.toError())
-            resolve(res.body)
+            if(res.status != 204) return reject(res.toError())
+            resolve()
           })
         })
       }
     , getSnapshots: function(id) {
         return new Promise(function(resolve, reject) {
           request
-          .get(root_url+'/api/v1/documents/'+id+'/snapshots')
+          .get(root_url+'/api/v1/documents/'+id+'/relationships/snapshots')
           .set('Authorization', 'token '+API_key)
           .end(function(err, res) {
             if(err) return reject(err)
             if(res.status != 200) return reject(res.toError())
-            resolve(res.body)
+            resolve(res.body.included)
           })
         })
       }
     , getSnapshotsSince: function(id, since) {
         return new Promise(function(resolve, reject) {
           request
-          .get(root_url+'/api/v1/documents/'+id+'/snapshots?since='+since)
+          .get(root_url+'/api/v1/documents/'+id+'/relationships/snapshots?since='+since)
           .set('Authorization', 'token '+API_key)
           .end(function(err, res) {
             if(err) return reject(err)
             if(res.status != 200) return reject(res.toError())
-            resolve(res.body)
+            resolve(res.body.included)
           })
         })
       }
@@ -86,7 +86,7 @@ module.exports = function(root_url, API_key) {
           .end(function(err, res) {
             if(err) return reject(err)
             if(res.status != 200) return reject(res.toError())
-            resolve(res.body)
+            resolve(res.body.data)
           })
         })
       }
@@ -99,7 +99,7 @@ module.exports = function(root_url, API_key) {
           .end(function(err, res) {
             if(err) return reject(err)
             if(res.status != 200) return reject(res.toError())
-            resolve(res.body)
+            resolve()
           })
         })
       }
@@ -109,12 +109,12 @@ module.exports = function(root_url, API_key) {
           return new Promise(function(resolve, reject) {
             request
             .post(root_url+'/api/v1/users')
-            .send(body)
+            .send({data: body})
             .set('Authorization', 'token '+API_key)
             .end(function loadDocument(err, res) {
               if(err) return reject(err)
-              if(res.status != 200) return reject(res.toError())
-              resolve(res.body)
+              if(res.status != 201) return reject(res.toError())
+              resolve(res.body.data)
             })
           })
         }
@@ -126,7 +126,7 @@ module.exports = function(root_url, API_key) {
             .end(function loadDocument(err, res) {
               if(err) return reject(err)
               if(res.status != 200) return reject(res.toError())
-              resolve(res.body)
+              resolve(res.body.data)
             })
           })
         }
@@ -139,7 +139,7 @@ module.exports = function(root_url, API_key) {
             .end(function loadDocument(err, res) {
              if(err) return reject(err)
              if(res.status != 200) return reject(res.toError())
-             resolve(res.body)
+             resolve(res.body.data)
             })
           })
         }
@@ -150,32 +150,32 @@ module.exports = function(root_url, API_key) {
             .set('Authorization', 'token '+API_key)
             .end(function loadDocument(err, res) {
               if(err) return reject(err)
-              if(res.status != 200) return reject(res.toError())
-              resolve(res.body)
+              if(res.status != 204) return reject(res.toError())
+              resolve()
             })
           })
         }
       , getDocuments: function(id) {
           return new Promise(function(resolve, reject) {
             request
-            .get(root_url+'/api/v1/users/'+id+'/documents')
+            .get(root_url+'/api/v1/users/'+id+'/relationships/documents')
             .set('Authorization', 'token '+API_key)
             .end(function(err, res) {
               if(err) return reject(err)
               if(res.status != 200) return reject(res.toError())
-              resolve(res.body)
+              resolve(res.body.included)
             })
           })
       }
       , getSnapshots: function(id) {
           return new Promise(function(resolve, reject) {
             request
-            .get(root_url+'/api/v1/users/'+id+'/snapshots')
+            .get(root_url+'/api/v1/users/'+id+'/relationships/snapshots')
             .set('Authorization', 'token '+API_key)
             .end(function(err, res) {
               if(err) return reject(err)
               if(res.status != 200) return reject(res.toError())
-              resolve(res.body)
+              resolve(res.body.included)
             })
           })
       }
@@ -189,7 +189,7 @@ module.exports = function(root_url, API_key) {
           .end(function loadDocument(err, res) {
             if(err) return reject(err)
             if(res.status != 200) return reject(res.toError())
-            resolve(res.body)
+            resolve(res.body.data)
           })
         })
       }
