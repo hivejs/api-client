@@ -133,8 +133,8 @@ module.exports = function(root_url, API_key) {
       , update: function(id, body) {
           return new Promise(function(resolve, reject) {
             request
-            .put(root_url+'/api/v1/users/'+id)
-            .send(body)
+            .patch(root_url+'/api/v1/users/'+id)
+            .send({data:{type: 'user', attributes: body}})
             .set('Authorization', 'token '+API_key)
             .end(function loadDocument(err, res) {
              if(err) return reject(err)
