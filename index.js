@@ -32,7 +32,7 @@ module.exports = function(root_url, API_key) {
         return new Promise(function(resolve, reject) {
           request
           .patch(root_url+'/api/v1/documents/'+id)
-          .send({data: {type: 'document', attributes: body}})
+          .send({data: {type: 'document', id: String(id), attributes: body}})
           .set('Authorization', 'token '+API_key)
           .end(function loadDocument(err, res) {
            if(err) return reject(err)
@@ -134,7 +134,7 @@ module.exports = function(root_url, API_key) {
           return new Promise(function(resolve, reject) {
             request
             .patch(root_url+'/api/v1/users/'+id)
-            .send({data:{type: 'user', attributes: body}})
+            .send({data:{type: 'user', id: String(id), attributes: body}})
             .set('Authorization', 'token '+API_key)
             .end(function loadDocument(err, res) {
              if(err) return reject(err)
