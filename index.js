@@ -9,6 +9,7 @@ module.exports = function(root_url, API_key) {
           .post(root_url+'/api/v1/documents')
           .send({data: body})
           .set('Authorization', 'token '+API_key)
+          .set('Content-type', 'application/vnd.api+json')
           .end(function (er, res) {
             if(er) return reject(er)
             if(res.status != 201) return reject(res.toError())
@@ -34,6 +35,7 @@ module.exports = function(root_url, API_key) {
           .patch(root_url+'/api/v1/documents/'+id)
           .send({data: {type: 'document', id: String(id), attributes: body}})
           .set('Authorization', 'token '+API_key)
+          .set('Content-type', 'application/vnd.api+json')
           .end(function loadDocument(err, res) {
            if(err) return reject(err)
            if(res.status != 200) return reject(res.toError())
@@ -111,6 +113,7 @@ module.exports = function(root_url, API_key) {
             .post(root_url+'/api/v1/users')
             .send({data: body})
             .set('Authorization', 'token '+API_key)
+            .set('Content-type', 'application/vnd.api+json')
             .end(function loadDocument(err, res) {
               if(err) return reject(err)
               if(res.status != 201) return reject(res.toError())
@@ -136,6 +139,7 @@ module.exports = function(root_url, API_key) {
             .patch(root_url+'/api/v1/users/'+id)
             .send({data:{type: 'user', id: String(id), attributes: body}})
             .set('Authorization', 'token '+API_key)
+            .set('Content-type', 'application/vnd.api+json')
             .end(function loadDocument(err, res) {
              if(err) return reject(err)
              if(res.status != 200) return reject(res.toError())
